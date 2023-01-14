@@ -234,21 +234,28 @@ class CloudStorageApplicationTests {
 		// Create a test account
 		doMockSignUp("Testing","Notes","notes","123");
 		doLogIn("notes", "123");
-		System.out.println("login");
+
 
 		Notes notes = new Notes(driver, webDriverWait);
 
 		notes.addNotes("title", "description");
 		Assertions.assertTrue(driver.getPageSource().contains("Success"));
-		System.out.println("added notes");
+		Assertions.assertEquals(1,notes.getNumberOfNotes());
+
+
+
 
 		notes.editNotes("title Edited", "description edited");
 		Assertions.assertTrue(driver.getPageSource().contains("Success"));
-		System.out.println("edited note");
+		Assertions.assertEquals(1,notes.getNumberOfNotes());
+
+
 
 		notes.deleteNotes();
 		Assertions.assertTrue(driver.getPageSource().contains("Success"));
-		System.out.println("deleted note");
+		Assertions.assertEquals(0,notes.getNumberOfNotes());
+
+
 	}
 
 	@Test
@@ -262,13 +269,16 @@ class CloudStorageApplicationTests {
 
 		credentials.addCredentials("http://url", "username", "password");
 		Assertions.assertTrue(driver.getPageSource().contains("Success"));
+		Assertions.assertEquals(1,credentials.getNumberOfCredentials());
 
 
-		credentials.editCredentials("http://url1", "username1", "password1");
+		credentials.editCredentials("http://url", "username1", "password1");
 		Assertions.assertTrue(driver.getPageSource().contains("Success"));
+		Assertions.assertEquals(1,credentials.getNumberOfCredentials());
 
 		credentials.deleteCredentials();
 		Assertions.assertTrue(driver.getPageSource().contains("Success"));
+		Assertions.assertEquals(0,credentials.getNumberOfCredentials());
 	}
 
 

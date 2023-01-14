@@ -27,10 +27,13 @@ public class Credentials {
         webDriver.findElement(By.id("save-changes")).click();
         webDriverWait.until(ExpectedConditions.titleContains("Result"));
     }
+    public Integer getNumberOfCredentials(){
+        webDriver.findElement(By.id("home-link")).click();
+        return webDriver.findElement(By.xpath("//table[@id='credentialTable']/tbody")).
+                findElements(By.tagName("tr")).size();
+    }
 
     public void editCredentials(String url, String username, String password) {
-
-        webDriver.findElement(By.id("home-link")).click();
 
         webDriver.findElement(By.id("nav-credentials-tab")).click();
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-credentials")));
@@ -54,7 +57,7 @@ public class Credentials {
     }
 
     public void deleteCredentials() {
-        webDriver.findElement(By.id("home-link")).click();
+
 
         webDriver.findElement(By.id("nav-credentials-tab")).click();
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-credentials")));
